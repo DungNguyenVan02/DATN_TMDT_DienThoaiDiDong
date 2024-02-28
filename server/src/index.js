@@ -2,11 +2,13 @@ const express = require("express");
 require("dotenv").config();
 const routes = require("./routes");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const db = require("./config/db");
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 const port = process.env.PORT || 8888;
 
@@ -16,10 +18,6 @@ app.use(
 		methods: ["GET", "PUT", "POST", "DELETE"],
 	})
 );
-
-app.use("/", (req, res) => {
-	res.json("Hello world!");
-});
 
 routes(app);
 // Connect to database

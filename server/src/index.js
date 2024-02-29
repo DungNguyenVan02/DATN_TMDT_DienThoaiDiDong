@@ -3,13 +3,14 @@ require("dotenv").config();
 const routes = require("./routes");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 
 const db = require("./config/db");
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 const port = process.env.PORT || 8888;
 
 app.use(

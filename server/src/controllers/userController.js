@@ -339,6 +339,272 @@ class UserController {
 			mes: user ? "Updated password" : "Something went wrong",
 		});
 	});
+
+	// [PUT] /update-info
+	updateInfo = asyncHandler(async (req, res) => {
+		const { _id } = req.user;
+		const { fullName } = req.body;
+		const payload = {
+			fullName,
+		};
+		if (req.file) {
+			payload.avatar = req.file.path;
+		}
+		const user = await User.findByIdAndUpdate(
+			_id,
+			{
+				payload,
+			},
+			{ new: true }
+		);
+
+		if (user) {
+			return res.status(200).json({
+				success: true,
+				mes: "Update thông tin thành công!",
+			});
+		} else {
+			return res.json({
+				success: false,
+				mes: "Update thông tin thất bại, vui lòng thử lại sau!",
+			});
+		}
+	});
+
+	// [PUT] /:uid
+	updateUserByAdmin = asyncHandler(async (req, res) => {
+		const { uid } = req.params;
+
+		if (!uid || Object.keys(req.body).length === 0) {
+			throw new Error("Missing inputs");
+		}
+		const response = await User.findByIdAndUpdate(uid, req.body, {
+			new: true,
+		}).select("-refreshToken -password -role");
+		return res.status(200).json({
+			success: response ? true : false,
+			dataUpdate: response,
+			updatedUser: response
+				? "Cập nhật thông tin người dùng thành công!"
+				: "Có lỗi xảy ra, vui lòng thử lại sau!",
+		});
+	});
+
+	// [PUT] /update-address
+	updateAddress = asyncHandler(async (req, res) => {
+		const { _id } = req.user;
+		const { address } = req.body;
+
+		const listAddress = await User.findById(_id).select("address");
+
+		const isExsited = listAddress.some((item) => item === address);
+
+		if (isExsited) {
+			throw new Error("Địa chỉ đã tồn tại!");
+		} else {
+			const response = await User.findByIdAndUpdate(
+				_id,
+				{ $push: { address } },
+				{
+					new: true,
+				}
+			).select("-refreshToken -password -role");
+			return res.status(200).json({
+				success: response ? true : false,
+				mes: response
+					? "Địa chỉ đã được thêm"
+					: "Có lỗi xảy ra vui lòng thủ lại sau",
+			});
+		}
+	});
+
+	// [PUT] /delete-address/:nad
+	deleteAddress = asyncHandler(async (req, res) => {
+		const { _id } = req.user;
+
+		const { nad } = req.params;
+
+		const listAddress = await User.findById(_id).select("address");
+		const isExsited = listAddress.some((item) => item === nad);
+
+		if (isExsited) {
+			const response = await User.findByIdAndUpdate(
+				_id,
+				{ $pull: { address } },
+				{
+					new: true,
+				}
+			).select("-refreshToken -password -role");
+			return res.status(200).json({
+				success: response ? true : false,
+				mes: response
+					? "Địa chỉ đã được thêm"
+					: "Có lỗi xảy ra vui lòng thủ lại sau",
+			});
+		} else {
+			throw new Error("Địa chỉ không tồn tại trên hệ thống");
+		}
+	});
+
+	// [PUT] /update-cart
+	updateCart = asyncHandler(async (req, res) => {
+		const { _id } = req.user;
+		const { pid, quantity = 1, color, thumbnail } = req.body;
+
+		const cartUser = await User.findById(_id).select("cart");
+
+		const alreadyProduct = cartUser?.cart?.find(
+			(el) =>
+				el.product.toString() === pid && el.color.toString() === color
+		);
+
+		if (alreadyProduct) {
+			const response = await User.updateOne(
+				{ cart: { $elemMatch: alreadyProduct } },
+				{
+					$set: {
+						"cart.$.quantity": alreadyProduct.quantity + quantity,
+						"cart.$.price": price,
+						"cart.$.thumbnail": thumbnail,
+					},
+				},
+				{ new: true }
+			);
+
+			return res.status(200).json({
+				success: response ? true : false,
+				mes: response
+					? "Cập nhật giỏ hàng thành công!"
+					: "Có lỗi xảy ra, vui lòng thử lại sau!",
+			});
+		} else {
+			const response = await User.findByIdAndUpdate(
+				_id,
+				{
+					$push: {
+						cart: {
+							product: pid,
+							quantity,
+							color,
+							price,
+							thumbnail,
+						},
+					},
+				},
+				{ new: true }
+			);
+
+			return res.status(200).json({
+				success: response ? true : false,
+				mes: response
+					? "Cập nhật giỏ hàng thành công!"
+					: "Có lỗi xảy ra, vui lòng thử lại sau!",
+			});
+		}
+	});
+
+	// [PUT] /update-quantity
+	updateQuantityCart = asyncHandler(async (req, res) => {
+		const { _id } = req.user;
+		const { pid } = req.params;
+		const { color, quantity } = req.body;
+		if (!pid || !color || !quantity) throw new Error("Missing inputs");
+		const cartUser = await User.findById(_id).select("cart");
+		const alreadyProduct = cartUser?.cart?.find(
+			(el) =>
+				el.product.toString() === pid && el.color.toString() === color
+		);
+		if (alreadyProduct) {
+			const response = await User.updateOne(
+				{ cart: { $elemMatch: alreadyProduct } },
+				{
+					$set: {
+						"cart.$.quantity": quantity,
+					},
+				},
+				{ new: true }
+			);
+
+			return res.status(200).json({
+				success: response ? true : false,
+
+				mes: response
+					? "Cập nhật giỏ hàng thành công!"
+					: "Có lỗi xảy ra, vui lòng thử lại sau!",
+			});
+		}
+
+		return res.status(200).json({
+			success: true,
+			mes: "Cannot find product in cart",
+		});
+	});
+
+	// [DELETE] /remove-cart
+	removeCart = asyncHandler(async (req, res) => {
+		const { _id } = req.user;
+		const { arrProduct } = req.body;
+		if (!arrProduct) throw new Error("Missing inputs");
+
+		const response = await User.findByIdAndUpdate(
+			_id,
+			{
+				$pull: {
+					cart: { _id: { $in: [...arrProduct] } },
+				},
+			},
+			{ new: true }
+		);
+		return res.status(200).json({
+			success: response ? true : false,
+			mes: response
+				? "Sản phẩm đã được xóa khỏi giỏ hàng!"
+				: "Có lỗi xảy ra, vui lòng thử lại sau!",
+		});
+	});
+
+	// [PUT] /wishlist/:pid
+	wishList = asyncHandler(async (req, res) => {
+		const { _id } = req.user;
+		const { pid } = req.params;
+
+		const user = await User.findById(_id);
+
+		const alreadyWishlist = await user?.wishlist?.find(
+			(wid) => wid.toString() === pid
+		);
+		if (alreadyWishlist) {
+			const response = await User.findByIdAndUpdate(
+				_id,
+				{
+					$pull: { wishlist: pid },
+				},
+				{ new: true }
+			);
+
+			return res.status(200).json({
+				success: response ? true : false,
+				mes: response
+					? "Cập nhật thành công!"
+					: "Có lỗi xảy ra, vui lòng thử lại sau!",
+			});
+		} else {
+			const response = await User.findByIdAndUpdate(
+				_id,
+				{
+					$push: { wishlist: pid },
+				},
+				{ new: true }
+			);
+
+			return res.status(200).json({
+				success: response ? true : false,
+				mes: response
+					? "Cập nhật thành công!"
+					: "Có lỗi xảy ra, vui lòng thử lại sau!",
+			});
+		}
+	});
 }
 
 module.exports = new UserController();

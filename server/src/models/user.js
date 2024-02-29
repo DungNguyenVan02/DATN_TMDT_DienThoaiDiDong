@@ -62,6 +62,7 @@ var userSchema = new mongoose.Schema(
 		passwordResetExpires: {
 			type: Date,
 		},
+
 		isVerified: {
 			type: Boolean,
 			default: false,

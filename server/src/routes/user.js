@@ -1,6 +1,8 @@
 const express = require("express");
 const userController = require("../controllers/userController");
 const { verifyAccessToken, isAdmin } = require("../middlewares/verifyToken");
+const upload = require("../config/cloudinary");
+
 const router = express.Router();
 
 router.post("/register", userController.register);
@@ -14,6 +16,27 @@ router.get(
 	"/refresh-token",
 	verifyAccessToken,
 	userController.refreshAccessToken
+);
+router.put(
+	"/update-info",
+	upload.single("avatar"),
+	verifyAccessToken,
+	userController.updateInfo
+);
+
+router.put("/update-address", verifyAccessToken, userController.updateAddress);
+router.put(
+	"/update-address/:nad",
+	verifyAccessToken,
+	userController.deleteAddress
+);
+router.put("/update-cart", verifyAccessToken, userController.updateCart);
+
+router.put(
+	"/update/:uid",
+	verifyAccessToken,
+	isAdmin,
+	userController.updateUserByAdmin
 );
 router.get("/", verifyAccessToken, isAdmin, userController.getUsers);
 

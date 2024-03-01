@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const cron = require("node-cron");
@@ -344,19 +344,16 @@ class UserController {
 	updateInfo = asyncHandler(async (req, res) => {
 		const { _id } = req.user;
 		const { fullName } = req.body;
-		const payload = {
-			fullName,
-		};
+		const payload = {};
+
+		if (fullName) {
+			payload.fullName = fullName;
+		}
 		if (req.file) {
 			payload.avatar = req.file.path;
 		}
-		const user = await User.findByIdAndUpdate(
-			_id,
-			{
-				payload,
-			},
-			{ new: true }
-		);
+
+		const user = await User.findByIdAndUpdate(_id, payload, { new: true });
 
 		if (user) {
 			return res.status(200).json({

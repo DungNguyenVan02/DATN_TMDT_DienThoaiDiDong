@@ -1,4 +1,5 @@
 const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 
 cloudinary.config({
@@ -7,13 +8,11 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-// SET STORAGE
-var storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, "DATN");
-	},
-	filename: function (req, file, cb) {
-		cb(null, file.images + "-" + Date.now());
+const storage = new CloudinaryStorage({
+	cloudinary,
+	allowedFormats: ["jpg", "png"],
+	params: {
+		folder: "DATN",
 	},
 });
 

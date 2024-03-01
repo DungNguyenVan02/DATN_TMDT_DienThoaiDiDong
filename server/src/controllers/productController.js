@@ -114,7 +114,6 @@ class productController {
 			slug,
 			brand,
 			category,
-			version,
 		};
 
 		const thumb = req?.files?.thumb[0]?.path;
@@ -128,7 +127,15 @@ class productController {
 			payload.images = images;
 		}
 
+		const convertVersion = version.split(", ");
+
 		const response = await Product.create(payload);
+
+		convertVersion.forEach((item) => {
+			response.version.push(item);
+		});
+
+		response.save();
 
 		if (response) {
 			return res.status(200).json({

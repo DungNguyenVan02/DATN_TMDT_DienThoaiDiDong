@@ -4,7 +4,7 @@ import Button from '../Button';
 
 const Banner = () => {
     return (
-        <div className="flex relative mt-[-74px] h-full overflow-hidden">
+        <div className="flex relative mt-[-74px] h-[600px] overflow-hidden">
             <img className="absolute top-0 left-0 max-w-[500px]" src={images.bgLeft} alt="" />
             <img className="absolute top-0 left-[12%] " src={images.bgCenter} alt="" />
             <img className="absolute max-w-[500px] top-[-8%] right-[17%] " src={images.bgRight} alt="" />

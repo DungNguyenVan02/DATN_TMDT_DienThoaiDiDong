@@ -45,12 +45,14 @@ const Header = () => {
                     </div>
                 </div>
             </Headroom>
-            <div className="absolute top-[74px] left-0 right-0 border-t-[1px] border-b-[1px] border-gray-300 text-white h-headerBottom">
+            <div className="absolute top-[74px] left-0 right-0 text-white h-headerBottom">
+                <hr className="opacity-30" />
                 <div className="max-w-main w-full h-full mx-auto px-[15px] flex items-center justify-between">
                     <h3 className="flex-1">Sản phẩm hót giảm giá lên tới 30%</h3>
                     <Search />
                     <h3 className="flex flex-1 justify-end">Bộ sưu tập mới</h3>
                 </div>
+                <hr className="opacity-30" />
             </div>
         </header>
     );

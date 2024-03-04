@@ -7,6 +7,10 @@ const images = {
     tag2: require('./tag_2.png'),
     tag3: require('./tag_3.png'),
     tag4: require('./tag_4.png'),
+
+    blurCircle: require('./blur-circle.png'),
+
+    noProductImage: require('./no-product-image.png'),
 };
 
 export default images;

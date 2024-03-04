@@ -10,7 +10,6 @@ const LeftHeader = () => {
     const { category, resizeScreen } = useSelector(appSelector);
 
     const navOption = ['Sản phẩm', 'Bài viết'];
-    console.log(resizeScreen);
     return (
         <div className="flex items-center justify-between">
             {resizeScreen < 430 ? (

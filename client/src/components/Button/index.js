@@ -37,7 +37,7 @@ function Button({
 
     return (
         <Comp
-            className={`${customStyles ? customStyles : 'text-[14px] px-[20px] py-[12px] border rounded-tr-3xl rounded-bl-3xl bg-gradient-custom '}`}
+            className={`${customStyles ? customStyles : 'text-[14px] px-[20px] py-[12px] border rounded-tr-3xl rounded-bl-3xl bg-gradient-custom hover:bg-none'}`}
         >
             {leftIcon && <span>{leftIcon}</span>}
             <span>{children}</span>

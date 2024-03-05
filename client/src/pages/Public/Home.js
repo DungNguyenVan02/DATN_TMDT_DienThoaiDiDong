@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import Banner from '~/components/Banner';
-import { Bestsellers } from '~/components/Section';
+import { AboutShop, Bestsellers, BrandProduct, FeaturedProduct } from '~/components/Section';
 import withBaseComponent from '~/components/hocs/withBaseComponent';
 import { getBestSellers, getCategory, getNewProduct } from '~/redux/action';
 
@@ -18,7 +18,13 @@ const Home = ({ dispatch }) => {
             <div className="text-white bg-black">
                 <Banner />
             </div>
-            <Bestsellers />
+            <div className="">
+                <Bestsellers />
+                <FeaturedProduct />
+                <BrandProduct category="Điện thoại" />
+                <BrandProduct category="Ipad" />
+                <AboutShop />
+            </div>
         </div>
     );
 };

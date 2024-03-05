@@ -9,16 +9,19 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-const Slider = ({ data, showLg, showMd, showSm }) => {
+const Slider = ({ data, showLg, showMd, showSm, isLoop = true }) => {
     return (
         <Swiper
             modules={[Navigation, Pagination, Autoplay]}
-            spaceBetween={15}
             loop={true}
-            autoplay={{
-                delay: 2000,
-                disableOnInteraction: false,
-            }}
+            autoplay={
+                isLoop
+                    ? {
+                          delay: 2000,
+                          disableOnInteraction: false,
+                      }
+                    : false
+            }
             pagination={{
                 dynamicBullets: true,
             }}
@@ -28,17 +31,18 @@ const Slider = ({ data, showLg, showMd, showSm }) => {
             navigation={true}
             breakpoints={{
                 0: {
-                    slidesPerView: showSm && showSm,
+                    slidesPerView: showSm || 1,
+                    spaceBetween: 5,
                 },
                 // when window width is >= 480px
                 480: {
-                    slidesPerView: showMd && showMd,
-                    spaceBetween: 30,
+                    slidesPerView: showMd || 2,
+                    spaceBetween: 10,
                 },
                 // when window width is >= 640px
                 1000: {
-                    slidesPerView: showLg && showLg,
-                    spaceBetween: 40,
+                    slidesPerView: showLg || 4,
+                    spaceBetween: 20,
                 },
             }}
             className="mySwiper"

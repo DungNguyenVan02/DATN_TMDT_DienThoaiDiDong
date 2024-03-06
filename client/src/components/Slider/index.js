@@ -32,17 +32,17 @@ const Slider = ({ data, showLg, showMd, showSm, isLoop = true }) => {
             breakpoints={{
                 0: {
                     slidesPerView: showSm || 1,
-                    spaceBetween: 5,
+                    spaceBetween: 2,
                 },
                 // when window width is >= 480px
                 480: {
                     slidesPerView: showMd || 2,
-                    spaceBetween: 10,
+                    spaceBetween: 5,
                 },
                 // when window width is >= 640px
                 1000: {
                     slidesPerView: showLg || 4,
-                    spaceBetween: 20,
+                    spaceBetween: 10,
                 },
             }}
             className="mySwiper"
@@ -50,7 +50,7 @@ const Slider = ({ data, showLg, showMd, showSm, isLoop = true }) => {
             {data?.map((item) => {
                 return (
                     <SwiperSlide key={item._id}>
-                        <div className="w-[200px]">
+                        <div className="w-full">
                             <ProductCard data={item} />
                         </div>
                     </SwiperSlide>

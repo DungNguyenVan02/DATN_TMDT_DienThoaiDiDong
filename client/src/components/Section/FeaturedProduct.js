@@ -24,7 +24,7 @@ const FeaturedProduct = () => {
         <div className="max-w-main w-full mx-auto py-3">
             <div className="flex justify-between underline-heading">
                 <h3 className="mb-4  text-[34px] font-semibold text-gradient">Sản phẩm nổi bật</h3>
-                <button>Tất cả</button>
+                <button className="hover:underline hover:text-blue-500">Tất cả</button>
             </div>
             <div className="mt-5">
                 <Slider data={products} isLoop={false} showLg={5} />

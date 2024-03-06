@@ -14,14 +14,17 @@ const ProductCard = ({ data }) => {
                 src={data?.thumb || images.noProductImage}
                 alt=""
             />
-
             <div>
                 <div>
                     <h3 className="line-clamp-1 text-[18px]">{data?.name}</h3>
                     <p className="opacity-60 font-light text-[12px]">{data?.brand}</p>
                 </div>
-                <div className="flex items-center gap-1">{renderStar(5)}</div>
-                <div className="text-[13px] mb-3 h-[34px]">
+                <div className="flex items-center gap-1">
+                    {renderStar(5).map((item, i) => (
+                        <i key={i}>{item}</i>
+                    ))}
+                </div>
+                <div className="text-[13px] mb-3 h-[34px] flex items-center justify-between">
                     <h4 className="text-[14px] font-medium ">
                         {formatMoney(data?.price * ((100 - data?.discount) / 100))}
                     </h4>

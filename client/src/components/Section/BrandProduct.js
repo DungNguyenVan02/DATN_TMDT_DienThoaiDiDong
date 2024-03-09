@@ -1,6 +1,8 @@
 import React, { memo, useEffect, useState } from 'react';
+import { SwiperSlide } from 'swiper/react';
 import { apiGetProducts } from '~/apis/products';
 import Slider from '~/components/Slider';
+import { ProductCard } from '../Product';
 
 const BrandProduct = ({ category }) => {
     const [products, setProducts] = useState([]);
@@ -60,7 +62,17 @@ const BrandProduct = ({ category }) => {
                 </div>
             </div>
             <div className="mt-5">
-                <Slider data={products} isLoop={false} showLg={5} />
+                <Slider isLoop={false} showLg={5}>
+                    {products.map((item) => {
+                        return (
+                            <SwiperSlide key={item._id}>
+                                <div className="w-full">
+                                    <ProductCard data={item} />
+                                </div>
+                            </SwiperSlide>
+                        );
+                    })}
+                </Slider>
             </div>
         </div>
     );

@@ -7,10 +7,14 @@ const appSlice = createSlice({
         category: null,
         resizeScreen: window.innerWidth,
         isLoading: false,
+        isShowModal: false,
     },
     reducers: {
         resizeScreen: (state, action) => {
             state.resizeScreen = action.payload;
+        },
+        showModal: (state, action) => {
+            state.isShowModal = action.payload;
         },
     },
 
@@ -36,6 +40,6 @@ const appSlice = createSlice({
     },
 });
 
-export const { resizeScreen } = appSlice.actions;
+export const { resizeScreen, showModal } = appSlice.actions;
 
 export default appSlice.reducer;

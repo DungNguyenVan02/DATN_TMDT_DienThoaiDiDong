@@ -6,6 +6,10 @@ import { CiSearch } from 'react-icons/ci';
 import { IoCloseOutline } from 'react-icons/io5';
 import { IoLogoGoogleplus } from 'react-icons/io';
 import { FaFacebookF, FaFlickr, FaLinkedinIn, FaTwitter, FaPinterest } from 'react-icons/fa';
+import { SlArrowRight } from 'react-icons/sl';
+import { GoArrowLeft } from 'react-icons/go';
+import { VscHeart, VscHeartFilled } from 'react-icons/vsc';
+import { FaCircleCheck } from 'react-icons/fa6';
 const icons = {
     MdOutlineKeyboardArrowDown,
     PiGlobeSimple,
@@ -24,6 +28,11 @@ const icons = {
     FaLinkedinIn,
     FaTwitter,
     FaPinterest,
+    SlArrowRight,
+    GoArrowLeft,
+    VscHeart,
+    VscHeartFilled,
+    FaCircleCheck,
 };
 
 export default icons;

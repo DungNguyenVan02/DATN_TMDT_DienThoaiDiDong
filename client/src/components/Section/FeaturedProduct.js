@@ -2,6 +2,8 @@ import React, { memo, useEffect, useState } from 'react';
 import { apiGetProducts } from '~/apis/products';
 
 import Slider from '../Slider';
+import { SwiperSlide } from 'swiper/react';
+import { ProductCard } from '../Product';
 
 const FeaturedProduct = () => {
     const [products, setProducts] = useState([]);
@@ -27,7 +29,17 @@ const FeaturedProduct = () => {
                 <button className="hover:underline hover:text-blue-500">Tất cả</button>
             </div>
             <div className="mt-5">
-                <Slider data={products} isLoop={false} showLg={5} />
+                <Slider isLoop={false} showLg={5}>
+                    {products.map((item) => {
+                        return (
+                            <SwiperSlide key={item._id}>
+                                <div className="w-full">
+                                    <ProductCard data={item} />
+                                </div>
+                            </SwiperSlide>
+                        );
+                    })}
+                </Slider>
             </div>
         </div>
     );

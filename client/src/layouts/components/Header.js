@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Search from '~/components/Search';
 import Headroom from 'react-headroom';
 import { LeftHeader, RightHeader } from '~/components/Header';
+import withBaseComponent from '~/components/hocs/withBaseComponent';
+import routes from '~/config/routes';
 
-const Header = () => {
+const Header = ({ navigate }) => {
     // eslint-disable-next-line no-unused-vars
     const [isGim, setIsGim] = useState(false);
     const [scrollY, setScrollY] = useState(0);
@@ -36,9 +38,11 @@ const Header = () => {
                 <div className={` ${isGim && scrollY > 30 ? 'bg-black' : ''} border-gray-300`}>
                     <div className="h-header max-w-main w-full px-[15px]  mx-auto text-white flex items-center justify-between ">
                         <div className="flex items-center flex-1">
-                            <LeftHeader />
+                            <LeftHeader navigate={navigate} />
                         </div>
-                        <h3 className="text-gradient text-[28px]">LEO phone shop</h3>
+                        <h3 className="text-gradient text-[28px] cursor-pointer" onClick={() => navigate(routes.home)}>
+                            LEO phone shop
+                        </h3>
                         <div className="flex-1">
                             <RightHeader />
                         </div>
@@ -58,4 +62,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default withBaseComponent(Header);

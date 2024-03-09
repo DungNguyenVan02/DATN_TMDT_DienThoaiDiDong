@@ -17,3 +17,26 @@ export const footerList = [
         ],
     },
 ];
+
+export const voteOptions = [
+    {
+        id: 1,
+        vote: 'Rất tệ',
+    },
+    {
+        id: 2,
+        vote: 'Tệ',
+    },
+    {
+        id: 3,
+        vote: 'Bình thường',
+    },
+    {
+        id: 4,
+        vote: 'Tốt',
+    },
+    {
+        id: 5,
+        vote: 'Rất tốt',
+    },
+];

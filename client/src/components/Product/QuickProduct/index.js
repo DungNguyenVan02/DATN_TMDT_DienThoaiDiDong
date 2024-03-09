@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { SwiperSlide } from 'swiper/react';
 import Slider from '~/components/Slider';
 import { productSelector } from '~/redux/selector';
+import ProductCard from '../ProductCard';
 
 const QuickProduct = () => {
     const { newProducts, bestSellers } = useSelector(productSelector);
@@ -25,7 +27,27 @@ const QuickProduct = () => {
                 </span>
             </div>
             <div className="w-full">
-                <Slider data={active === 1 ? bestSellers : newProducts} showLg={4} showMd={2} showSm={1} />
+                <Slider showLg={4} showMd={2} showSm={1}>
+                    {active === 1
+                        ? bestSellers?.map((item) => {
+                              return (
+                                  <SwiperSlide key={item._id}>
+                                      <div className="w-full">
+                                          <ProductCard data={item} />
+                                      </div>
+                                  </SwiperSlide>
+                              );
+                          })
+                        : newProducts?.map((item) => {
+                              return (
+                                  <SwiperSlide key={item._id}>
+                                      <div className="w-full">
+                                          <ProductCard data={item} />
+                                      </div>
+                                  </SwiperSlide>
+                              );
+                          })}
+                </Slider>
             </div>
         </div>
     );

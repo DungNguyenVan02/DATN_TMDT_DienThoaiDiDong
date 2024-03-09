@@ -5,11 +5,23 @@ import 'tippy.js/dist/tippy.css'; // optional
 import icons from '~/utiles/icons';
 import { useSelector } from 'react-redux';
 import { appSelector } from '~/redux/selector';
+import routes from '~/config/routes';
+import { Link } from 'react-router-dom';
+
 const LeftHeader = () => {
     const { MdOutlineKeyboardArrowDown } = icons;
     const { category, resizeScreen } = useSelector(appSelector);
 
-    const navOption = ['Sản phẩm', 'Bài viết'];
+    const navOption = [
+        {
+            title: 'Sản phẩm',
+            to: routes.products,
+        },
+        {
+            title: 'Bài việt',
+            to: routes.blogs,
+        },
+    ];
     return (
         <div className="flex items-center justify-between">
             {resizeScreen < 430 ? (
@@ -48,13 +60,14 @@ const LeftHeader = () => {
                     </div>
                     {navOption?.map((item, i) => {
                         return (
-                            <div
+                            <Link
+                                to={`/${item.to}`}
                                 key={i}
                                 className={` flex items-center cursor-pointer hover:text-blue-500 ${resizeScreen > 1113 ? ' pr-5 ' : resizeScreen >= 740 && resizeScreen <= 1113 ? 'pr-2' : ''}`}
                             >
-                                <span>{item}</span>
+                                <span>{item.title}</span>
                                 <MdOutlineKeyboardArrowDown />
-                            </div>
+                            </Link>
                         );
                     })}
                 </>

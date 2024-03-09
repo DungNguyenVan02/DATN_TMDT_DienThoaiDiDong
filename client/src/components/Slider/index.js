@@ -1,15 +1,14 @@
 import React from 'react';
-import { ProductCard } from '../Product';
 
 import { Pagination, Navigation, Autoplay } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-const Slider = ({ data, showLg, showMd, showSm, isLoop = true }) => {
+const Slider = ({ children, showLg, showMd, showSm, isLoop = true }) => {
     return (
         <Swiper
             modules={[Navigation, Pagination, Autoplay]}
@@ -47,15 +46,7 @@ const Slider = ({ data, showLg, showMd, showSm, isLoop = true }) => {
             }}
             className="mySwiper"
         >
-            {data?.map((item) => {
-                return (
-                    <SwiperSlide key={item._id}>
-                        <div className="w-full">
-                            <ProductCard data={item} />
-                        </div>
-                    </SwiperSlide>
-                );
-            })}
+            {children}
         </Swiper>
     );
 };

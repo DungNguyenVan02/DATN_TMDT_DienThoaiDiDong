@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import AboutOurCard from '../common/AboutOurCard';
+import { AboutOurCard } from '../common';
 
 const AboutShop = () => {
     const OurShop = [

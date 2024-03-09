@@ -1,4 +1,4 @@
-import { Cart, Home, Products } from '~/pages/Public';
+import { Blogs, Cart, DetailProduct, Home, Products } from '~/pages/Public';
 
 import routes from '~/config/routes';
 
@@ -8,8 +8,16 @@ const routesApp = [
         component: Home,
     },
     {
-        path: routes.product,
+        path: routes.products,
         component: Products,
+    },
+    {
+        path: routes.products_detail_slug_pid,
+        component: DetailProduct,
+    },
+    {
+        path: routes.blogs,
+        component: Blogs,
     },
     {
         path: routes.cart,

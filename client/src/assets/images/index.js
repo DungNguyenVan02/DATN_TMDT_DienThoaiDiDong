@@ -11,6 +11,7 @@ const images = {
     blurCircle: require('./blur-circle.png'),
 
     noProductImage: require('./no-product-image.png'),
+    reviewPRoduct: require('./reviewProduct.png'),
 };
 
 export default images;

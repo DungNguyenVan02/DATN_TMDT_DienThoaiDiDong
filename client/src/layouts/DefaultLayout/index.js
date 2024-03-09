@@ -3,7 +3,7 @@ import { Footer, Header } from '../components';
 
 const DefaultLayout = ({ children }) => {
     return (
-        <div>
+        <div className="relative">
             <Header />
             <div>{children}</div>
             <Footer />

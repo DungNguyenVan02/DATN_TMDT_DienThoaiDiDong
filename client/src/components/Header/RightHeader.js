@@ -4,17 +4,26 @@ import icons from '~/utiles/icons';
 import WrapperTippy from '~/components/WrapperTippy';
 import Tippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css'; // optional
+import routes from '~/config/routes';
+import { useSelector } from 'react-redux';
+import { userSelector } from '~/redux/selector';
+import withBaseComponent from '../hocs/withBaseComponent';
+import { logout } from '~/redux/slice/userSlide';
 
-const RightHeader = () => {
+const RightHeader = ({ navigate, dispatch }) => {
     const { PiGlobeSimple, BsCart2 } = icons;
-    const infoOption = ['Thông tin cá nhân', 'Danh sách yêu thích', 'Đăng xuất'];
+    const infoOption = [
+        { title: 'Thông tin cá nhân', path: routes.profile },
+        { title: 'Danh sách yêu thích', path: routes.profile_wishlist },
+        { title: 'Đăng xuất', dispatch: true },
+    ];
+    const { currentUser } = useSelector(userSelector);
 
-    const [isLogin, setIsLogin] = useState(false);
     const [isShow, setIsShow] = useState(false);
 
     return (
         <>
-            {isLogin ? (
+            {currentUser ? (
                 <div className="flex gap-3 items-center justify-end flex-1">
                     <div>
                         <Tippy
@@ -29,10 +38,17 @@ const RightHeader = () => {
                                             {infoOption.map((item, i) => {
                                                 return (
                                                     <li
+                                                        onClick={() => {
+                                                            if (item.dispatch) {
+                                                                dispatch(logout());
+                                                            } else {
+                                                                navigate('/' + item?.path);
+                                                            }
+                                                        }}
                                                         key={i}
-                                                        className="hover:bg-gray-100 p-1 cursor-pointer last:border-t"
+                                                        className={` ${item.dispatch ? 'hover:bg-red-500 hover:text-white' : 'hover:bg-gray-100'} p-1 cursor-pointer last:border-t`}
                                                     >
-                                                        {item}
+                                                        {item.title}
                                                     </li>
                                                 );
                                             })}
@@ -63,7 +79,7 @@ const RightHeader = () => {
                     </div>
                     <span className="relative cursor-pointer hover:opacity-90" title="Giỏ hàng">
                         <BsCart2 size={24} />
-                        <div className="subCart">2</div>
+                        <div className="subCart">{currentUser.cart.length}</div>
                     </span>
                 </div>
             ) : (
@@ -71,7 +87,10 @@ const RightHeader = () => {
                     <Button customStyles={'text-[14px] px-[10px] py-[4px] border rounded-md bg-gradient-custom '}>
                         Đăng ký
                     </Button>
-                    <Button customStyles={'text-[14px] px-[10px] py-[4px] border rounded-md bg-gradient-custom '}>
+                    <Button
+                        to={`/${routes.login}`}
+                        customStyles={'text-[14px] px-[10px] py-[4px] border rounded-md bg-gradient-custom '}
+                    >
                         Đăng nhập
                     </Button>
                 </div>
@@ -80,4 +99,4 @@ const RightHeader = () => {
     );
 };
 
-export default RightHeader;
+export default withBaseComponent(RightHeader);

@@ -4,6 +4,8 @@ import routesApp from './routes';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { resizeScreen } from './redux/slice/appSlice';
 import { useDispatch } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     const dispatch = useDispatch();
@@ -25,26 +27,29 @@ function App() {
     }, [widthScreen]);
 
     return (
-        <Router>
-            <div className="font-main">
-                <Routes>
-                    {routesApp.map((route, index) => {
-                        const Page = route.component;
-                        return (
-                            <Route
-                                key={index}
-                                path={`/${route.path}`}
-                                element={
-                                    <DefaultLayout>
-                                        <Page />
-                                    </DefaultLayout>
-                                }
-                            />
-                        );
-                    })}
-                </Routes>
-            </div>
-        </Router>
+        <div>
+            <Router>
+                <div className="font-main">
+                    <Routes>
+                        {routesApp.map((route, index) => {
+                            const Page = route.component;
+                            return (
+                                <Route
+                                    key={index}
+                                    path={`/${route.path}`}
+                                    element={
+                                        <DefaultLayout>
+                                            <Page />
+                                        </DefaultLayout>
+                                    }
+                                />
+                            );
+                        })}
+                    </Routes>
+                </div>
+            </Router>
+            <ToastContainer autoClose={2000} theme="colored" />
+        </div>
     );
 }
 

@@ -6,6 +6,9 @@ const routes = {
     cart: 'cart',
     checkout: 'checkout',
 
+    profile: 'profile',
+    profile_wishlist: 'profile/wishlist',
+
     blogs: 'blogs',
     blogs_detail_bid: 'blogs/detail/:bid',
 

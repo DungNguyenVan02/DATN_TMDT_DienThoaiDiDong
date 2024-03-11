@@ -14,6 +14,7 @@ const routes = {
 
     login: 'login',
     register: 'register',
+    forgot: 'forgot',
 
     //admin
     admin_dashboard: 'admin/dashboard',

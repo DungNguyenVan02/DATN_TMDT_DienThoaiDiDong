@@ -84,7 +84,10 @@ const RightHeader = ({ navigate, dispatch }) => {
                 </div>
             ) : (
                 <div className="flex gap-3 items-center justify-end flex-1">
-                    <Button customStyles={'text-[14px] px-[10px] py-[4px] border rounded-md bg-gradient-custom '}>
+                    <Button
+                        to={`/${routes.register}`}
+                        customStyles={'text-[14px] px-[10px] py-[4px] border rounded-md bg-gradient-custom '}
+                    >
                         Đăng ký
                     </Button>
                     <Button

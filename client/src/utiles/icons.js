@@ -4,12 +4,13 @@ import { BsCart2, BsStarFill, BsStar, BsStarHalf } from 'react-icons/bs';
 
 import { CiSearch } from 'react-icons/ci';
 import { IoCloseOutline } from 'react-icons/io5';
-import { IoLogoGoogleplus } from 'react-icons/io';
+import { IoLogoGoogleplus, IoIosEyeOff, IoIosEye } from 'react-icons/io';
 import { FaFacebookF, FaFlickr, FaLinkedinIn, FaTwitter, FaPinterest } from 'react-icons/fa';
 import { SlArrowRight } from 'react-icons/sl';
 import { GoArrowLeft } from 'react-icons/go';
 import { VscHeart, VscHeartFilled } from 'react-icons/vsc';
 import { FaCircleCheck } from 'react-icons/fa6';
+
 const icons = {
     MdOutlineKeyboardArrowDown,
     PiGlobeSimple,
@@ -18,6 +19,8 @@ const icons = {
 
     IoCloseOutline,
     IoLogoGoogleplus,
+    IoIosEyeOff,
+    IoIosEye,
 
     BsStarFill,
     BsStarHalf,

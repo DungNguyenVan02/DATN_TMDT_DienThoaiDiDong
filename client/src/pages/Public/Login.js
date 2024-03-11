@@ -1,4 +1,3 @@
-import React from 'react';
 import { InputCustom } from '~/components/Form';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,8 +8,10 @@ import withBaseComponent from '~/components/hocs/withBaseComponent';
 import { login } from '~/redux/slice/userSlide';
 import routes from '~/config/routes';
 import { Link } from 'react-router-dom';
+import icons from '~/utiles/icons';
 
 const Login = ({ dispatch, navigate }) => {
+    const { IoIosEyeOff, IoIosEye } = icons;
     const {
         watch,
         register,
@@ -50,6 +51,8 @@ const Login = ({ dispatch, navigate }) => {
                     <InputCustom
                         id="password"
                         label="Password"
+                        type="password"
+                        icons={[<IoIosEyeOff size={20} color="gray" />, <IoIosEye size={20} color="gray" />]}
                         register={{ ...register('password') }}
                         error={errors.password?.message}
                         isValue={watch('password')}
@@ -64,7 +67,10 @@ const Login = ({ dispatch, navigate }) => {
                         >
                             Đăng ký tài khoản
                         </Link>
-                        <span className="opacity-60 hover:text-blue-500 hover:opacity-100 cursor-pointer">
+                        <span
+                            onClick={() => navigate(`/${routes.forgot}`)}
+                            className="opacity-60 hover:text-blue-500 hover:opacity-100 cursor-pointer"
+                        >
                             Quên mật khẩu
                         </span>
                     </div>

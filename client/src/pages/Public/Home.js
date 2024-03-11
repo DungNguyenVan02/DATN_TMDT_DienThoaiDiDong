@@ -10,6 +10,8 @@ const Home = ({ dispatch }) => {
         dispatch(getCategory());
         dispatch(getBestSellers());
         dispatch(getNewProduct());
+
+        window.scrollTo({ x: 0, y: 0, behavior: 'smooth' });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

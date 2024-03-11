@@ -1,4 +1,4 @@
-import { Blogs, Cart, DetailProduct, Home, Login, Products } from '~/pages/Public';
+import { Blogs, Cart, DetailProduct, Home, Login, Products, Register, Forgot } from '~/pages/Public';
 
 import routes from '~/config/routes';
 
@@ -10,6 +10,14 @@ const routesApp = [
     {
         path: routes.login,
         component: Login,
+    },
+    {
+        path: routes.forgot,
+        component: Forgot,
+    },
+    {
+        path: routes.register,
+        component: Register,
     },
     {
         path: routes.products,

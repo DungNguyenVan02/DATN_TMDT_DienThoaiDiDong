@@ -7,7 +7,7 @@ import images from '~/assets/images';
 import { voteOptions } from '~/utiles/contains';
 import { apiRatingsProduct } from '~/apis/products';
 
-const FormReview = ({ dispatch, name, pid }) => {
+const FormReview = ({ dispatch, name, pid, onRerender }) => {
     const formModalRef = useRef();
     const { IoCloseOutline, BsStarFill } = icons;
     const [starHover, setStarHover] = useState(5);
@@ -23,12 +23,16 @@ const FormReview = ({ dispatch, name, pid }) => {
     }, []);
 
     const handleRatingsSubmit = async () => {
+        const date = new Date();
         await apiRatingsProduct({
             star: starVote,
             comment,
+            date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
+            time: `${date.getHours()}:${date.getMinutes()}`,
             pid,
         });
         dispatch(showModal(false));
+        onRerender((prev) => !prev);
     };
 
     return (

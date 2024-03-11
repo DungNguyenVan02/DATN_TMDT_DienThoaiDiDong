@@ -31,17 +31,17 @@ const Slider = ({ children, showLg, showMd, showSm, isLoop = true }) => {
             breakpoints={{
                 0: {
                     slidesPerView: showSm || 1,
-                    spaceBetween: 2,
+                    spaceBetween: 5,
                 },
                 // when window width is >= 480px
                 480: {
                     slidesPerView: showMd || 2,
-                    spaceBetween: 5,
+                    spaceBetween: 10,
                 },
                 // when window width is >= 640px
                 1000: {
                     slidesPerView: showLg || 4,
-                    spaceBetween: 10,
+                    spaceBetween: 15,
                 },
             }}
             className="mySwiper"

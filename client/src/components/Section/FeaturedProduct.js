@@ -14,7 +14,7 @@ const FeaturedProduct = () => {
             sort: '-totalRatings',
         });
 
-        if (response.success) {
+        if (response?.success) {
             setProducts(response.products);
         }
     };

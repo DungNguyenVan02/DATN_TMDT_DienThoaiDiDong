@@ -12,6 +12,7 @@ const images = {
 
     noProductImage: require('./no-product-image.png'),
     reviewPRoduct: require('./reviewProduct.png'),
+    review: require('./review.png'),
 };
 
 export default images;

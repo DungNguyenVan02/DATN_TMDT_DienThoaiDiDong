@@ -33,7 +33,7 @@ const QuickProduct = () => {
                               return (
                                   <SwiperSlide key={item._id}>
                                       <div className="w-full">
-                                          <ProductCard data={item} />
+                                          <ProductCard data={item} btnWhite />
                                       </div>
                                   </SwiperSlide>
                               );
@@ -42,7 +42,7 @@ const QuickProduct = () => {
                               return (
                                   <SwiperSlide key={item._id}>
                                       <div className="w-full">
-                                          <ProductCard data={item} />
+                                          <ProductCard data={item} btnWhite />
                                       </div>
                                   </SwiperSlide>
                               );

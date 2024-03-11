@@ -26,7 +26,7 @@
 //     //         page: Math.floor(Math.random() * 5),
 //     //         sort: '-totalRatings',
 //     //     });
-//     //     if (response.success) {
+//     //     if (response?.success) {
 //     //         dispatch(
 //     //             getDeadDaily({
 //     //                 data: response.products[0],

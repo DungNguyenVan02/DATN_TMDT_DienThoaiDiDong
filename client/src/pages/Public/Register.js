@@ -30,7 +30,7 @@ const Register = ({ navigate }) => {
     const formSubmit = async (data) => {
         console.log(data);
         const response = await apiRegister(data);
-        if (response.success) {
+        if (response?.success) {
             Swal.fire({
                 title: 'Thông báo',
                 text: 'Mã xác thực đã được gửi, vui lòng kiểm tra email và xác thực!',
@@ -46,7 +46,7 @@ const Register = ({ navigate }) => {
     const handleCompleted = async () => {
         const response = await apiFinalRegister({ codeVerified });
 
-        if (response.success) {
+        if (response?.success) {
             setIsShowModal(false);
             Swal.fire({
                 title: 'Thành công',

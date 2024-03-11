@@ -27,7 +27,7 @@ const Forgot = ({ navigate }) => {
             codeForgotPassword: data?.codeVerified,
             password: data?.password,
         });
-        if (response.success) {
+        if (response?.success) {
             Swal.fire({
                 title: 'Hệ thống thông báo',
                 text: 'Đã đổi mật khẩu thành công!',
@@ -45,7 +45,7 @@ const Forgot = ({ navigate }) => {
             toast.warning('Vui lòng nhập đủ các trường còn trống');
         } else {
             const response = await apiTakeCode({ email: watch('email') });
-            if (response.success) {
+            if (response?.success) {
                 Swal.fire({
                     title: 'Hệ thống thông báo',
                     text: 'Mã xác thực đã được gửi, vui lòng kiểm tra email!',

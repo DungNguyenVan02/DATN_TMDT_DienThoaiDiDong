@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import icons from '~/utiles/icons';
 
 const VoteBar = ({ ratingCount, ratingTotal, number }) => {
-    console.log(ratingTotal);
     const { BsStarFill } = icons;
     const innerPercent = useRef();
 

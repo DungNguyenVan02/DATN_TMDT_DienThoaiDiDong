@@ -8,6 +8,17 @@ const instance = axios.create({
 instance.interceptors.request.use(
     function (config) {
         // Do something before request is sent
+        const token = JSON.parse(window.localStorage.getItem('persist:user/LEOphone'));
+
+        if (token) {
+            const accessToken = JSON.parse(token.token);
+            config.headers = {
+                Authorization: 'Bearer ' + accessToken,
+            };
+
+            return config;
+        }
+
         return config;
     },
     function (error) {

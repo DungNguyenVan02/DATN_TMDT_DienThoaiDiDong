@@ -7,33 +7,42 @@ import icons from '~/utiles/icons';
 
 const ContentCenter = ({ product }) => {
     const { VscHeart, VscHeartFilled } = icons;
+    const [selectVariants, setSelectVariants] = useState({
+        id: '',
+        color: null,
+        price: null,
+    });
 
     const [quantity, setQuantity] = useState(1);
+
     // Enter quantity
-    const handleQuantity = useCallback();
-    // (number) => {
-    //     if (+number > selectVariants?.quantity) {
-    //         setQuantity(selectVariants?.quantity);
-    //     } else {
-    //         setQuantity(+number);
-    //     }
-    // },
-    // // eslint-disable-next-line react-hooks/exhaustive-deps
-    // [quantity, selectVariants?.quantity]
+    const handleQuantity = useCallback(
+        (number) => {
+            if (+number > selectVariants?.quantity) {
+                setQuantity(selectVariants?.quantity);
+            } else {
+                setQuantity(+number);
+            }
+        },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [quantity, selectVariants?.quantity],
+    );
 
     // Handle up or down quantity
-    const handleChangeQuantity = useCallback();
-    // (number) => {
-    //     if (number < 1) {
-    //         setQuantity(1);
-    //     } else if (number > selectVariants?.quantity) {
-    //         setQuantity(selectVariants?.quantity);
-    //     } else {
-    //         setQuantity(number);
-    //     }
-    // },
-    // // eslint-disable-next-line react-hooks/exhaustive-deps
-    // [quantity, selectVariants?.quantity]
+    const handleChangeQuantity = useCallback(
+        (number) => {
+            if (number < 1) {
+                setQuantity(1);
+            } else if (number > selectVariants?.quantity) {
+                setQuantity(selectVariants?.quantity);
+            } else {
+                setQuantity(number);
+            }
+        },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [quantity, selectVariants?.quantity],
+    );
+
     return (
         <div className="flex flex-col gap-4 px-5">
             <h3 className="text-[24px] font-semibold line-clamp-2">{product?.name}</h3>

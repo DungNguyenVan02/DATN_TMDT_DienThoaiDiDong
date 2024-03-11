@@ -7,12 +7,8 @@ const ContentLeft = ({ product, thumb, onChangeThumb }) => {
     return (
         <div>
             <div className="w-full bg-gradient-custom p-[2px] rounded-tr-3xl rounded-bl-3xl overflow-hidden">
-                <div className="bg-black rounded-tr-3xl rounded-bl-3xl">
-                    <img
-                        className="w-[330px] min-w-[380px] object-cover mx-auto"
-                        src={thumb || images.noProductImage}
-                        alt=""
-                    />
+                <div className="bg-black rounded-tr-3xl rounded-bl-3xl flex items-center justify-center">
+                    <img className="max-w-[330px] object-cover mx-auto" src={thumb || images.noProductImage} alt="" />
                 </div>
             </div>
             <div className="my-3 bg-gradient-custom w-full  overflow-hidden p-[2px] rounded-tr-3xl rounded-bl-3xl">

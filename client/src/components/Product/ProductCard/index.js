@@ -5,7 +5,7 @@ import Button from '~/components/Button';
 import routes from '~/config/routes';
 import { formatMoney, renderStar } from '~/utiles/helper';
 
-const ProductCard = ({ data, customStyles }) => {
+const ProductCard = ({ data, customStyles, btnWhite }) => {
     return (
         <div
             className={
@@ -27,7 +27,7 @@ const ProductCard = ({ data, customStyles }) => {
                         <p className="opacity-60 font-light text-[12px]">{data?.brand}</p>
                     </div>
                     <div className="flex items-center gap-1">
-                        {renderStar(5).map((item, i) => (
+                        {renderStar(data?.totalRatings).map((item, i) => (
                             <i key={i}>{item}</i>
                         ))}
                     </div>
@@ -43,7 +43,9 @@ const ProductCard = ({ data, customStyles }) => {
                     </div>
                 </div>
             </Link>
-            <Button customStyles="text-[14px] px-4 py-2 w-full border rounded-tr-3xl rounded-bl-3xl bg-gradient-custom hover:bg-none hover:text-gray-900">
+            <Button
+                customStyles={`text-[14px] px-4 py-2 w-full border rounded-tr-3xl rounded-bl-3xl bg-gradient-custom hover:bg-none ${btnWhite ? 'hover:text-white' : 'hover:text-gray-800'}`}
+            >
                 Thêm vào giỏ hàng
             </Button>
         </div>

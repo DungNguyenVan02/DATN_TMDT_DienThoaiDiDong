@@ -14,7 +14,7 @@ const BrandProduct = ({ category }) => {
             brand: brandShow,
         });
 
-        if (response.success) {
+        if (response?.success) {
             setProducts(response.products);
         }
     };

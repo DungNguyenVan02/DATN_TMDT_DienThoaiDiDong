@@ -13,7 +13,7 @@ const Products = (location) => {
     const [products, setProducts] = useState([]);
     const fetchProducts = async (queries) => {
         const response = await apiGetProducts(queries);
-        if (response.success) {
+        if (response?.success) {
             setProducts(response.products);
         }
     };

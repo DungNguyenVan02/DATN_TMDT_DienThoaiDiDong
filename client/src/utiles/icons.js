@@ -10,7 +10,7 @@ import { SlArrowRight } from 'react-icons/sl';
 import { GoArrowLeft } from 'react-icons/go';
 import { VscHeart, VscHeartFilled } from 'react-icons/vsc';
 import { FaCircleCheck } from 'react-icons/fa6';
-
+import { GoClock } from 'react-icons/go';
 const icons = {
     MdOutlineKeyboardArrowDown,
     PiGlobeSimple,
@@ -36,6 +36,7 @@ const icons = {
     VscHeart,
     VscHeartFilled,
     FaCircleCheck,
+    GoClock,
 };
 
 export default icons;

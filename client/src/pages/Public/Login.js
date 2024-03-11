@@ -23,10 +23,12 @@ const Login = ({ dispatch, navigate }) => {
 
     const formSubmit = async (data) => {
         const response = await apiLogin(data);
-        if (response.success) {
+        if (response?.success) {
             dispatch(login(response));
-            navigate(routes.home);
-            toast.info('Chào mừng bạn đến với LEO phone');
+            setTimeout(() => {
+                navigate(routes.home);
+                toast.info('Chào mừng bạn đến với LEO phone');
+            }, 500);
         } else {
             toast.error(response.mes);
         }

@@ -102,7 +102,9 @@ class UserController {
 			} while (isExsitedCode);
 
 			const useTemp = await User.create({
-				...req.body,
+				fullName,
+				phone,
+				password,
 				email: emailToken,
 				codeVerified: codeRand,
 				registerTokenExpires: verificationExpires,
@@ -319,14 +321,17 @@ class UserController {
 
 	// [PUT] /reset-password
 	resetPassword = asyncHandler(async (req, res) => {
-		const { password, codeForgotPassword } = req.body;
+		const { email, password, codeForgotPassword } = req.body;
 		const user = await User.findOne({
+			email,
 			codeForgotPassword,
 			passwordResetExpires: { $gt: Date.now() },
 		});
 
 		if (!user) {
-			throw new Error("Invalid reset token");
+			throw new Error(
+				"Mã xác thực không hợp lệ hoặc đã hết hạn, vui lòng kiểm tra lại"
+			);
 		}
 
 		user.password = password;

@@ -18,7 +18,7 @@ router.post(
 	isAdmin,
 	productController.createProduct
 );
-router.get("/:pid", verifyAccessToken, productController.getProduct);
+router.get("/:pid", productController.getProduct);
 router.post("/ratings", verifyAccessToken, productController.ratingsProduct);
 router.put("/update-sold", verifyAccessToken, productController.updateSold);
 router.put(
@@ -39,6 +39,6 @@ router.delete(
 	isAdmin,
 	productController.deleteProduct
 );
-router.get("/", verifyAccessToken, isAdmin, productController.getProducts);
+router.get("/", productController.getProducts);
 
 module.exports = router;

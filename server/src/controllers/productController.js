@@ -19,7 +19,6 @@ class productController {
 			}
 		);
 		const formatQuery = JSON.parse(queryString);
-		let colorQueryObj = {};
 
 		// Filtering
 		if (queries?.q) {
@@ -31,6 +30,7 @@ class productController {
 			];
 		}
 
+		let colorQueryObj = {};
 		if (queries?.color) {
 			delete formatQuery.color;
 			const colorArr = queries.color?.split(",");
@@ -40,7 +40,32 @@ class productController {
 			colorQueryObj = { $or: colorQuery };
 		}
 
-		const q = { ...colorQueryObj, ...formatQuery };
+		let brandQueryObj = {};
+		if (queries?.brand) {
+			delete formatQuery.brand;
+			const brandArr = queries.brand?.split(",");
+			const brandQuery = brandArr.map((el) => ({
+				brand: { $regex: el, $options: "i" },
+			}));
+			brandQueryObj = { $or: brandQuery };
+		}
+
+		let categoryQueryObj = {};
+		if (queries?.category) {
+			delete formatQuery.category;
+			const categoryArr = queries.category?.split(",");
+			const categoryQuery = categoryArr.map((el) => ({
+				category: { $regex: el, $options: "i" },
+			}));
+			categoryQueryObj = { $or: categoryQuery };
+		}
+
+		const q = {
+			...categoryQueryObj,
+			...brandQueryObj,
+			...colorQueryObj,
+			...formatQuery,
+		};
 
 		let queryCommand = Product.find(q);
 

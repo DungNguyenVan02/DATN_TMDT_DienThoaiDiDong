@@ -42,7 +42,6 @@ var productSchema = new mongoose.Schema(
 		images: {
 			type: Array,
 		},
-		version: Array,
 		color: {
 			type: String,
 		},
@@ -59,6 +58,7 @@ var productSchema = new mongoose.Schema(
 			type: Number,
 			default: 0,
 		},
+		version: Array,
 		variants: [
 			{
 				sku: String,

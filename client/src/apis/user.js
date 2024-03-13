@@ -38,3 +38,27 @@ export const apiResetPassword = (data) => {
         data,
     });
 };
+
+export const apiGetUsers = (params) => {
+    return axios({
+        url: '/user/',
+        method: 'GET',
+        params,
+    });
+};
+
+export const apiDeleteUser = (uid) => {
+    return axios({
+        url: '/user/' + uid,
+        method: 'DELETE',
+    });
+};
+
+export const apiUpdateUserByAdmin = (uid, data) => {
+    console.log(data);
+    return axios({
+        url: '/user/update/' + uid,
+        method: 'PUT',
+        data,
+    });
+};

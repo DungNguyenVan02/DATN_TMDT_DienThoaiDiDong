@@ -49,4 +49,11 @@ const formatTimes = (number) => {
     return { h, m, s };
 };
 
-export { formatMoney, renderStar, formatTimes };
+const generateRange = (start, end) => {
+    const length = end + 1 - start;
+    return Array.from({ length }, (el, i) => {
+        return start + i;
+    });
+};
+
+export { formatMoney, renderStar, formatTimes, generateRange };

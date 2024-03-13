@@ -110,3 +110,7 @@ html *::-webkit-scrollbar-track {
 .swiper-button-next::after {
     font-size: 28px !important;
 }
+
+.shadowSideBar {
+    box-shadow: rgba(0, 0, 0, 0.35) 5px 2.4px 3.2px;
+}

@@ -17,6 +17,7 @@ const RightHeader = ({ navigate, dispatch }) => {
         { title: 'Danh sách yêu thích', path: routes.profile_wishlist },
         { title: 'Đăng xuất', dispatch: true },
     ];
+
     const { currentUser } = useSelector(userSelector);
 
     const [isShow, setIsShow] = useState(false);
@@ -35,6 +36,16 @@ const RightHeader = ({ navigate, dispatch }) => {
                                 <div className="min-w-[100px]" tabIndex="-1" {...attrs}>
                                     <WrapperTippy>
                                         <ul>
+                                            {currentUser?.role === 12 && (
+                                                <li
+                                                    onClick={() => {
+                                                        navigate(`/${routes.admin_dashboard}`);
+                                                    }}
+                                                    className="hover:bg-gray-100 p-1 cursor-pointer "
+                                                >
+                                                    Admin manage
+                                                </li>
+                                            )}
                                             {infoOption.map((item, i) => {
                                                 return (
                                                     <li

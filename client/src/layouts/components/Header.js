@@ -4,6 +4,7 @@ import Headroom from 'react-headroom';
 import { LeftHeader, RightHeader } from '~/components/Header';
 import withBaseComponent from '~/components/hocs/withBaseComponent';
 import routes from '~/config/routes';
+import { Link } from 'react-router-dom';
 
 const Header = ({ navigate }) => {
     // eslint-disable-next-line no-unused-vars
@@ -40,9 +41,9 @@ const Header = ({ navigate }) => {
                         <div className="flex items-center flex-1">
                             <LeftHeader navigate={navigate} />
                         </div>
-                        <h3 className="text-gradient text-[28px] cursor-pointer" onClick={() => navigate(routes.home)}>
+                        <Link to={routes.home} className="text-gradient text-[28px] cursor-pointer">
                             LEO phone shop
-                        </h3>
+                        </Link>
                         <div className="flex-1">
                             <RightHeader />
                         </div>

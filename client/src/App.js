@@ -6,6 +6,7 @@ import { resizeScreen } from './redux/slice/appSlice';
 import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminLayout from './layouts/AdminLayout';
 
 function App() {
     const dispatch = useDispatch();
@@ -33,14 +34,18 @@ function App() {
                     <Routes>
                         {routesApp.map((route, index) => {
                             const Page = route.component;
+                            let Layout = DefaultLayout;
+                            if (route.adminLayout) {
+                                Layout = AdminLayout;
+                            }
                             return (
                                 <Route
                                     key={index}
                                     path={`/${route.path}`}
                                     element={
-                                        <DefaultLayout>
+                                        <Layout>
                                             <Page />
-                                        </DefaultLayout>
+                                        </Layout>
                                     }
                                 />
                             );

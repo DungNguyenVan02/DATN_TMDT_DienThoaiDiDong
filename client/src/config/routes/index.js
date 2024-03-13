@@ -17,7 +17,17 @@ const routes = {
     forgot: 'forgot',
 
     //admin
+    admin: 'admin',
     admin_dashboard: 'admin/dashboard',
+
+    admin_manage_products: 'admin/manage/products',
+    admin_manage_product_create: 'admin/manage/product_create',
+
+    admin_manage_users: 'admin/manage/users',
+
+    admin_manage_orders: 'admin/manage/orders',
+    admin_manage_order_return: 'admin/manage/orders_return',
+    admin_manage_order_success: 'admin/manage/orders_success',
 };
 
 export default routes;

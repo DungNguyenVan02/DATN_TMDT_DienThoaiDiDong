@@ -1,6 +1,7 @@
 import { Blogs, Cart, DetailProduct, Home, Login, Products, Register, Forgot } from '~/pages/Public';
 
 import routes from '~/config/routes';
+import { Dashboard, ManageOrders, ManageProducts, ManageUsers } from '~/pages/Admin';
 
 const routesApp = [
     {
@@ -34,6 +35,28 @@ const routesApp = [
     {
         path: routes.cart,
         component: Cart,
+    },
+
+    // Admin
+    {
+        path: routes.admin_dashboard,
+        component: Dashboard,
+        adminLayout: true,
+    },
+    {
+        path: routes.admin_manage_orders,
+        component: ManageOrders,
+        adminLayout: true,
+    },
+    {
+        path: routes.admin_manage_products,
+        component: ManageProducts,
+        adminLayout: true,
+    },
+    {
+        path: routes.admin_manage_users,
+        component: ManageUsers,
+        adminLayout: true,
     },
 ];
 

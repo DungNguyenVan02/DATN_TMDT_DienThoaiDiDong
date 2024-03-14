@@ -103,7 +103,13 @@ class productController {
 	// [GET] /product/:pid
 	getProduct = asyncHandler(async (req, res) => {
 		const { pid } = req.params;
-		const response = await Product.findById(pid);
+		const response = await Product.findById(pid).populate({
+			path: "ratings",
+			populate: {
+				path: "postedBy",
+				select: "fullName avatar",
+			},
+		});
 		return res.status(200).json({
 			success: response ? true : false,
 			data: response,

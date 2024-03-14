@@ -31,13 +31,64 @@ const scheduleAccountCleanup = () => {
 class UserController {
 	// [GET] /
 	getUsers = asyncHandler(async (req, res) => {
-		const response = await User.find();
-		return res.status(200).json({
-			success: response ? true : false,
-			data: response,
-			mes: response
-				? "Lấy danh sách user thành công"
-				: "Có lỗi xảy ra, vui lòng thử lại sau!",
+		const queries = { ...req.query };
+		// Tách trường đặc biệt trên query
+		const excludeFields = ["page", "sort", "limit", "fields"];
+		// format lại các operators cho đúng cú pháp mongoose
+		excludeFields.forEach((field) => delete queries[field]);
+
+		let queryString = JSON.stringify(queries);
+		queryString = queryString.replace(
+			/\b(gte|gt|lte|lt)\b/g,
+			(matchedEl) => {
+				return `$${matchedEl}`;
+			}
+		);
+		const formatQuery = JSON.parse(queryString);
+
+		// Filtering
+		if (queries?.q) {
+			delete formatQuery.q;
+			formatQuery["$or"] = [
+				{ fullName: { $regex: queries.q, $options: "i" } },
+				{ phone: { $regex: queries.q, $options: "i" } },
+			];
+		}
+
+		const q = {
+			...formatQuery,
+		};
+
+		let queryCommand = User.find(q);
+
+		// Sorting
+		if (req.query.sort) {
+			const sortBy = req.query.sort.split(",").join(" ");
+			queryCommand = queryCommand.sort(sortBy);
+		}
+
+		// Fields limiting
+		if (req.query.fields) {
+			const fields = req.query.fields.split(",").join(" ");
+			queryCommand = queryCommand.select(fields);
+		}
+		// Pagination
+		// limit: số object lấy về trong 1 lần gọi api
+		// skip: số trang muốn bỏ qua
+		const page = +req.query.page || 1;
+		const limit = +req.query.limit || process.env.LIMIT;
+		const skip = (page - 1) * limit;
+		queryCommand.skip(skip).limit(limit);
+
+		// execute query
+		queryCommand.exec(async (err, response) => {
+			if (err) throw new Error(err.message);
+			const counts = await User.find(q).countDocuments();
+			return res.status(200).json({
+				success: response ? true : false,
+				counts,
+				data: response ? response : "Lấy danh sách thất bại",
+			});
 		});
 	});
 
@@ -373,16 +424,37 @@ class UserController {
 		}
 	});
 
+	// [POST] /logout
+	deleteUser = asyncHandler(async (req, res) => {
+		const { uid } = req.params;
+		console.log(uid);
+		if (!uid) {
+			throw new Error("Missing input");
+		}
+
+		const response = await User.findByIdAndDelete(uid);
+
+		return res.status(200).json({
+			success: response ? true : false,
+			mes: "Xóa thành công",
+		});
+	});
+
 	// [PUT] /:uid
 	updateUserByAdmin = asyncHandler(async (req, res) => {
 		const { uid } = req.params;
+		const { isBlocked } = req.body;
 
-		if (!uid || Object.keys(req.body).length === 0) {
+		if (!uid) {
 			throw new Error("Missing inputs");
 		}
-		const response = await User.findByIdAndUpdate(uid, req.body, {
-			new: true,
-		}).select("-refreshToken -password -role");
+		const response = await User.findByIdAndUpdate(
+			uid,
+			{ isBlocked },
+			{
+				new: true,
+			}
+		).select("-refreshToken -password -role");
 		return res.status(200).json({
 			success: response ? true : false,
 			dataUpdate: response,
@@ -455,17 +527,17 @@ class UserController {
 
 		const cartUser = await User.findById(_id).select("cart");
 
-		const alreadyProduct = cartUser?.cart?.find(
+		const alreadyUser = cartUser?.cart?.find(
 			(el) =>
 				el.product.toString() === pid && el.color.toString() === color
 		);
 
-		if (alreadyProduct) {
+		if (alreadyUser) {
 			const response = await User.updateOne(
-				{ cart: { $elemMatch: alreadyProduct } },
+				{ cart: { $elemMatch: alreadyUser } },
 				{
 					$set: {
-						"cart.$.quantity": alreadyProduct.quantity + quantity,
+						"cart.$.quantity": alreadyUser.quantity + quantity,
 						"cart.$.price": price,
 						"cart.$.thumbnail": thumbnail,
 					},
@@ -512,13 +584,13 @@ class UserController {
 		const { color, quantity } = req.body;
 		if (!pid || !color || !quantity) throw new Error("Missing inputs");
 		const cartUser = await User.findById(_id).select("cart");
-		const alreadyProduct = cartUser?.cart?.find(
+		const alreadyUser = cartUser?.cart?.find(
 			(el) =>
 				el.product.toString() === pid && el.color.toString() === color
 		);
-		if (alreadyProduct) {
+		if (alreadyUser) {
 			const response = await User.updateOne(
-				{ cart: { $elemMatch: alreadyProduct } },
+				{ cart: { $elemMatch: alreadyUser } },
 				{
 					$set: {
 						"cart.$.quantity": quantity,
@@ -545,14 +617,14 @@ class UserController {
 	// [DELETE] /remove-cart
 	removeCart = asyncHandler(async (req, res) => {
 		const { _id } = req.user;
-		const { arrProduct } = req.body;
-		if (!arrProduct) throw new Error("Missing inputs");
+		const { arrUser } = req.body;
+		if (!arrUser) throw new Error("Missing inputs");
 
 		const response = await User.findByIdAndUpdate(
 			_id,
 			{
 				$pull: {
-					cart: { _id: { $in: [...arrProduct] } },
+					cart: { _id: { $in: [...arrUser] } },
 				},
 			},
 			{ new: true }

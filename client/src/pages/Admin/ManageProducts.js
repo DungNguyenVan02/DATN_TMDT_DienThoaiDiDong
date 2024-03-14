@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { createSearchParams, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Pagination } from '~/components/common';
-import { apiGetProducts } from '~/apis';
+import { apiDeleteProduct, apiGetProducts } from '~/apis';
 import withBaseComponent from '~/components/hocs/withBaseComponent';
 import { useDebounce } from '~/components/hooks';
 import { formatMoney } from '~/utiles/helper';
 import icons from '~/utiles/icons';
 
 const ManageProducts = ({ navigate, location }) => {
-    const { CiSearch, ImBin, BsSortDown, BsSortUp } = icons;
+    const { CiSearch, ImBin, LuFileEdit, LiaCubesSolid, BsSortDown, BsSortUp } = icons;
 
     const [params] = useSearchParams();
     const [products, setProducts] = useState([]);
@@ -58,35 +58,35 @@ const ManageProducts = ({ navigate, location }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debounceValue, params, isRerender]);
 
-    // const handleRemove = (uid) => {
-    //     Swal.fire({
-    //         title: 'Bạn có chắc chắn muốn xóa tài khoản này?',
-    //         text: 'Tài khoản này sẽ bị xóa khỏi hệ thống',
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Xác nhận xóa',
-    //     }).then(async (result) => {
-    //         if (result.isConfirmed) {
-    //             const response = await apiDeleteUser(uid);
-    //             if (response.success) {
-    //                 setIsRerender((prev) => !prev);
-    //                 Swal.fire({
-    //                     title: 'Xóa thành công!',
-    //                     text: 'Tài khoản đã bị xóa',
-    //                     icon: 'success',
-    //                 });
-    //             } else {
-    //                 Swal.fire({
-    //                     title: 'Hệ thống thông báo',
-    //                     text: 'Có lỗi xảy ra, vui lòng thử lại sau',
-    //                     icon: 'warning',
-    //                 });
-    //             }
-    //         }
-    //     });
-    // };
+    const handleDelete = (pid) => {
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn xóa sản phẩm này?',
+            text: 'Sản phẩm này sẽ bị xóa khỏi hệ thống',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xác nhận',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const response = await apiDeleteProduct(pid);
+                if (response.success) {
+                    setIsRerender((prev) => !prev);
+                    Swal.fire({
+                        title: 'Xóa thành công!',
+                        text: 'Sản phẩm đã bị xóa',
+                        icon: 'success',
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Hệ thống thông báo',
+                        text: 'Có lỗi xảy ra, vui lòng thử lại sau',
+                        icon: 'warning',
+                    });
+                }
+            }
+        });
+    };
 
     const handleSort = (sort) => {
         let isSort = false;
@@ -108,7 +108,7 @@ const ManageProducts = ({ navigate, location }) => {
 
     return (
         <div>
-            <div className="bg-[#181924] min-h-screen  text-white  px-5 pt-[80px]  ">
+            <div className="bg-[#181924] min-h-screen  text-white  px-5 pt-[80px] w-[1300px]">
                 <div className="px-3 py-5 bg-[#2a2b36]  rounded-lg">
                     <div className="flex h-[60px] bg-[#2a2b36] items-center py-3 gap-5">
                         <div className="h-full flex items-center border rounded-md ">
@@ -122,7 +122,7 @@ const ManageProducts = ({ navigate, location }) => {
                             <CiSearch size={20} className="mx-3 cursor-pointer opacity-80 hover:opacity-100" />
                         </div>
                     </div>
-                    <div className="overflow-x-auto shadow-md sm:rounded-lg">
+                    <div className="overflow-x-auto  shadow-md sm:rounded-lg">
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-white uppercase bg-gray-800 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
@@ -208,8 +208,16 @@ const ManageProducts = ({ navigate, location }) => {
                                             </td>
                                             <td className="px-6 py-3">
                                                 <div className="flex items-center justify-center gap-3">
-                                                    <i className="cursor-pointer opacity-80 hover:opacity-100">Sửa</i>
                                                     <i className="cursor-pointer opacity-80 hover:opacity-100">
+                                                        <LuFileEdit size={20} color="#4285f4" />
+                                                    </i>
+                                                    <i className="cursor-pointer opacity-80 hover:opacity-100">
+                                                        <LiaCubesSolid size={24} color="#34a853" />
+                                                    </i>
+                                                    <i
+                                                        className="cursor-pointer opacity-80 hover:opacity-100"
+                                                        onClick={() => handleDelete(product._id)}
+                                                    >
                                                         <ImBin size={20} color="#de3737" />
                                                     </i>
                                                 </div>

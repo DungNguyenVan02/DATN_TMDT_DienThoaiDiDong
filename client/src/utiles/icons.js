@@ -18,7 +18,7 @@ import { TfiDashboard } from 'react-icons/tfi';
 import { LuFileEdit } from 'react-icons/lu';
 import { ImBin } from 'react-icons/im';
 
-import { LiaUserTimesSolid, LiaUserCheckSolid } from 'react-icons/lia';
+import { LiaUserTimesSolid, LiaUserCheckSolid, LiaCubesSolid } from 'react-icons/lia';
 
 const icons = {
     MdOutlineKeyboardArrowDown,
@@ -62,6 +62,7 @@ const icons = {
 
     BsSortDown,
     BsSortUp,
+    LiaCubesSolid,
 };
 
 export default icons;

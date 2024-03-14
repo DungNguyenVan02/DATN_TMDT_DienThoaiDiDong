@@ -22,3 +22,10 @@ export const apiRatingsProduct = (data) => {
         data,
     });
 };
+
+export const apiDeleteProduct = (pid) => {
+    return axios({
+        url: '/product/' + pid,
+        method: 'DELETE',
+    });
+};

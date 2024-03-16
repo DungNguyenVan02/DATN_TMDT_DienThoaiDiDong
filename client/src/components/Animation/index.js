@@ -1,4 +1,4 @@
-import { RotatingLines } from 'react-loader-spinner';
+import { RotatingLines, Comment } from 'react-loader-spinner';
 const Spinner = () => {
     return (
         <RotatingLines
@@ -13,4 +13,19 @@ const Spinner = () => {
     );
 };
 
-export { Spinner };
+const Uploading = () => {
+    return (
+        <Comment
+            visible={true}
+            height="90"
+            width="90"
+            ariaLabel="comment-loading"
+            wrapperStyle={{}}
+            wrapperClass="comment-wrapper"
+            color="#fff"
+            backgroundColor="transparent"
+        />
+    );
+};
+
+export { Spinner, Uploading };

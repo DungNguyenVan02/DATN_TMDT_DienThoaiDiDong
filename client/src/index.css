@@ -114,3 +114,7 @@ html *::-webkit-scrollbar-track {
 .shadowSideBar {
     box-shadow: rgba(0, 0, 0, 0.35) 5px 2.4px 3.2px;
 }
+
+.css-1nmdiq5-menu {
+    z-index: 99999 !important;
+}

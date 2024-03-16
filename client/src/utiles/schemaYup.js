@@ -29,3 +29,9 @@ export const schemaForgot = yup.object({
         .oneOf([yup.ref('password'), null], 'Mật khẩu nhập vào không trùng khớp'),
     codeVerified: yup.string().required('Vui lòng nhập trường này!'),
 });
+
+export const schemaCreateProduct = yup.object({
+    name: yup.string().required('Vui lòng nhập trường này!'),
+    quantity: yup.string().required('Vui lòng nhập trường này!').min(1, 'Số lượng sản phẩm tối thiểu là 1'),
+    price: yup.string().required('Vui lòng nhập trường này!').min(1, 'Giá sản phẩm tối thiểu 1 VNĐ'),
+});

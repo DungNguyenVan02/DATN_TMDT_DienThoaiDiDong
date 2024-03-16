@@ -107,3 +107,19 @@ export const sidebarMenuAdmin = [
         ],
     },
 ];
+
+export const optionsRam = [
+    { value: '4 GB', label: '4 GB' },
+    { value: '6 GB', label: '6 GB' },
+    { value: '8 GB', label: '8 GB' },
+    { value: '16 GB', label: '16 GB' },
+];
+
+export const optionsInternalMemory = [
+    { value: '32 GB', label: '32 GB' },
+    { value: '64 GB', label: '64 GB' },
+    { value: '128 GB', label: '128 GB' },
+    { value: '256 GB', label: '256 GB' },
+    { value: '512 GB', label: '512 GB' },
+    { value: '1 T', label: '1 T' },
+];

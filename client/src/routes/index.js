@@ -1,7 +1,7 @@
 import { Blogs, Cart, DetailProduct, Home, Login, Products, Register, Forgot } from '~/pages/Public';
 
 import routes from '~/config/routes';
-import { Dashboard, ManageOrders, ManageProducts, ManageUsers } from '~/pages/Admin';
+import { CreateProduct, Dashboard, ManageOrders, ManageProducts, ManageUsers } from '~/pages/Admin';
 
 const routesApp = [
     {
@@ -51,6 +51,11 @@ const routesApp = [
     {
         path: routes.admin_manage_products,
         component: ManageProducts,
+        adminLayout: true,
+    },
+    {
+        path: routes.admin_manage_product_create,
+        component: CreateProduct,
         adminLayout: true,
     },
     {

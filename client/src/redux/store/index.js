@@ -17,9 +17,15 @@ const userConfig = {
     whitelist: ['currentUser', 'token'],
 };
 
+const appConfig = {
+    ...commonConfig,
+    key: 'app/LEOphone',
+    whitelist: ['category'],
+};
+
 const store = configureStore({
     reducer: {
-        app: appSlice,
+        app: persistReducer(appConfig, appSlice),
         product: productSlide,
         user: persistReducer(userConfig, userSlide),
     },
